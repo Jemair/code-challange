@@ -1,0 +1,5 @@
+_Store
+.cache/
+.idea/
+dist/
+node_modules/
