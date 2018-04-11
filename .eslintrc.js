@@ -161,7 +161,7 @@ module.exports = {
     'brace-style': ['error', '1tbs', { 'allowSingleLine': true }],
 
     // require or disallow trailing commas
-    'comma-dangle': 'error',
+    'comma-dangle': [2, 'always-multiline'],
 
     // enforce consistent spacing before and after commas
     'comma-spacing': 'error',

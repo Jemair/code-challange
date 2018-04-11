@@ -1,23 +1,24 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { renderRoutes } from 'react-router-config'
-import { NavLink as Link } from 'react-router-dom'
-import './MainView.styl'
+import React, { PureComponent } from 'react'
+import { Tabs } from 'antd-mobile'
+import LongList from './LongList'
+import LazyLoad from './LazyLoad'
 
-const MainView = ({ route }) => (
-  <div className="main-view">
-    <div className="btn-group">
-      <Link to="/sync" className="btn" activeClassName="active">To Sync</Link>
-      <Link to="/async" className="btn" activeClassName="active">To Async</Link>
-    </div>
-    <div className="view">
-      {renderRoutes(route.childRoutes)}
-    </div>
-  </div>
-)
+const tabs = [
+  { title: 'The first tab' },
+  { title: 'The second tab' },
+  { title: 'The third tab' },
+]
 
-MainView.prototype.propTypes = {
-  route: PropTypes.object
+export default class App extends PureComponent {
+  render() {
+    return (
+      <Tabs
+        tabs={tabs}
+      >
+        <LongList />
+        <LazyLoad />
+        <div>3</div>
+      </Tabs>
+    )
+  }
 }
-
-export default MainView
