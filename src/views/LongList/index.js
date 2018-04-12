@@ -1,146 +1,190 @@
-/* eslint-disable */
-import React from 'react'
+import React, { PureComponent } from 'react'
+import { ListView } from 'antd-mobile'
 import ReactDOM from 'react-dom'
-import {ListView} from 'antd-mobile'
+import { List } from 'immutable'
+import s from './index.styl'
+import * as data from './data'
 
 function MyBody(props) {
   return (
     <div className="am-list-body my-body">
-      <span style={{display: 'none'}}>you can custom body wrap element</span>
+      <span style={{ display: 'none' }}>you can custom body wrap element</span>
       {props.children}
     </div>
   )
 }
 
-const data = [
-  {
-    img: 'https://zos.alipayobjects.com/rmsportal/dKbkpPXKfvZzWCM.png',
-    title: 'abccccc',
-    des: 'test',
-  },
-  {
-    img: 'https://zos.alipayobjects.com/rmsportal/XmwCzSeJiqpkuMB.png',
-    title: 'efafaf',
-    des: 'testtesttesttest',
-  },
-  {
-    img: 'https://zos.alipayobjects.com/rmsportal/hfVtzEhPzTUewPm.png',
-    title: 'Eat the week',
-    des: 'testtesttesttesttesttesttest',
-  },
-]
-const NUM_SECTIONS = 5
-const NUM_ROWS_PER_SECTION = 5
-let pageIndex = 0
+function isElementInViewport(el) {
+  const rect = el.getBoundingClientRect()
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  )
+}
 
-const dataBlobs = data
-let sectionIDs = []
-// let rowIDs = [0, 1, 2]
-
-export default class LongList extends React.Component {
+export default class LongList extends PureComponent {
   constructor(props) {
     super(props)
-    const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID]
-    const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID]
-
-    const dataSource = new ListView.DataSource({
-      rowHasChanged: (row1, row2) => row1 !== row2,
-    })
+    const ds = new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 })
 
     this.state = {
-      dataSource,
-      isLoading: true,
+      ds,
+      isLoading: false,
       height: document.documentElement.clientHeight * 3 / 4,
+      touchStartEvent: null,
+      isSlide: null,
     }
   }
 
   componentDidMount() {
-    // you can scroll to the specified position
+    this.setHeight()
+    this.generateData()
+    this.preventUnneededSlide()
+  }
 
-    const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop
+  componentWillUnmount() {
+    document.removeEventListener('touchstart', this.handleTouchStart)
+  }
 
+  destoryInactiveRows = ev => {
+    console.log(ev.target.scrollTop)
+    const oContent = ReactDOM.findDOMNode(this.lv).querySelector('.am-list')
+    const aRows = oContent.querySelectorAll('.row')
+    let recycledheight = 0
+    Array.from(aRows).forEach(n => {
+      console.log(n.offsetTop)
+    })
+  }
+
+  /**
+   * 刷新数据并存入state
+   */
+  generateData() {
+    let longData = List()
+    const { ds } = this.state
+    for (let i = 0; i < 2; i++) {
+      longData = longData.concat(List(data.subjects))
+    }
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(dataBlobs),
-      isLoading: false,
+      data: longData,
+      ds: ds.cloneWithRows(longData.toArray()),
+    })
+  }
+
+  /**
+   * ListView和Tabs组件在上下左右滑动时存在太过灵敏的问题
+   * 通过这个方法在纵向滚动大于横向滚动时阻止横向滚动的触发，反之亦然
+   */
+  preventUnneededSlide = () => {
+    const oDiv = ReactDOM.findDOMNode(this.lv)
+    oDiv.addEventListener('touchstart', this.handleTouchStart)
+  }
+
+  handleTouchStart = ev => {
+    this.setState({ touchStartEvent: ev })
+    const oDiv = ReactDOM.findDOMNode(this.lv)
+    oDiv.addEventListener('touchmove', this.handleTouchmove)
+    oDiv.addEventListener('touchend', this.handleTouchEnd)
+  }
+
+  /**
+   * 判断当次滚动应当触发横向滑动还是纵向滚动
+   * @param ev
+   */
+  handleTouchmove = ev => {
+    const { touchStartEvent } = this.state
+    const startY = touchStartEvent.touches[0].clientY
+    const endY = ev.touches[0].clientY
+    const startX = touchStartEvent.touches[0].clientX
+    const endX = ev.touches[0].clientX
+    // 如果当次滚动判断完成则将结果存入state, 本次触摸事件不再判断
+    let { isSlide } = this.state
+    if (!isSlide) {
+      isSlide = Math.abs(startY - endY) > Math.abs(startX - endX) ? 1 : -1
+      this.setState({ isSlide })
+    }
+    if (isSlide === 1) {
+      ev.stopPropagation()
+    } else if (isSlide === -1) {
+      ev.preventDefault()
+    }
+  }
+
+  /**
+   * 在每次触摸事件结束后释放事件句柄与state
+   */
+  handleTouchEnd = () => {
+    document.removeEventListener('touchmove', this.handleTouchmove)
+    document.removeEventListener('touchend', this.handleTouchEnd)
+    this.setState({ touchStartEvent: null, isSlide: null })
+  }
+
+  /**
+   * ListView在不以body为父元素时需要手动设置高度
+   */
+  setHeight = () => {
+    const hei = document.documentElement.clientHeight - ReactDOM.findDOMNode(this.lv).parentNode.offsetTop
+    this.setState({
       height: hei,
     })
   }
 
-  onEndReached = (event) => {
-    // load new data
-    // hasMore: from backend data, indicates whether it is the last page, here is false
-    if (this.state.isLoading && !this.state.hasMore) {
-      return
-    }
-    console.log('reach end', event)
-    this.setState({isLoading: true})
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(dataBlobs),
-      isLoading: false,
-    })
+  handleEndReached = () => {
+    const { start, tag, count } = this.state
+    const newStart = start + count
+    this.generateData(newStart, tag, count)
+    this.setState({ isLoading: true })
   }
 
-  render() {
-    const separator = (sectionID, rowID) => (
-      <div
-        key={`${sectionID}-${rowID}`}
-        style={{
-          backgroundColor: '#F5F5F9',
-          height: 8,
-          borderTop: '1px solid #ECECED',
-          borderBottom: '1px solid #ECECED',
-        }}
-      />
-    )
-    const row = (rowData, sectionID, rowID) => {
-      /*if (index < 0) {
-        index = data.length - 1
-      }
-      const obj = data[index--]
-      return (
-        <div key={rowID} style={{padding: '0 15px'}}>
-          <div
-            style={{
-              lineHeight: '50px',
-              color: '#888',
-              fontSize: 18,
-              borderBottom: '1px solid #F6F6F6',
-            }}
-          >{obj.title}</div>
-          <div style={{display: '-webkit-box', display: 'flex', padding: '15px 0'}}>
-            <img style={{height: '64px', marginRight: '15px'}} src={obj.img} alt=""/>
-            <div style={{lineHeight: 1}}>
-              <div style={{marginBottom: '8px', fontWeight: 'bold'}}>{obj.des}</div>
-              <div><span style={{fontSize: '30px', color: '#FF6E27'}}>35</span>¥ {rowID}</div>
-            </div>
-          </div>
-        </div>
-      )*/
-      return (
-        <div key={rowID} style={{height: 200}}>
-          asfhao;hf
-        </div>
-      )
-    }
+  renderRow = (rowData, _, rowID) => (
+    <div key={rowID} className={`${s.row} row`}>
+      <p className={s.bigImg}><img src={rowData.images.small} alt={rowData.title} /></p>
+      <div className={s.content}>
+        <p className={s.title}>{rowData.title}</p>
+        <p className={s.id}>id: {rowData.id}</p>
+      </div>
+    </div>
+  )
 
+  renderSeparator = (_, rowID) => (
+    <div
+      key={rowID}
+      style={{
+        backgroundColor: '#F5F5F9',
+        height: 8,
+        borderTop: '1px solid #ECECED',
+        borderBottom: '1px solid #ECECED',
+      }}
+    />
+  )
+
+  render() {
+    const { ds, height } = this.state
     return (
       <ListView
-        ref={el => this.lv = el}
-        dataSource={this.state.dataSource.cloneWithRows(data)}
+        ref={el => {
+          this.lv = el
+        }}
+        initialListSize={10}
+        dataSource={ds}
         renderHeader={() => <span>header</span>}
-        renderFooter={() => (<div style={{padding: 30, textAlign: 'center'}}>
+        renderFooter={() => (<div style={{ padding: '1rem', textAlign: 'center' }}>
           {this.state.isLoading ? 'Loading...' : 'Loaded'}
         </div>)}
-        renderBodyComponent={() => <MyBody/>}
-        renderRow={row}
-        renderSeparator={separator}
-        style={{height: this.state.height}}
-        pageSize={4}
-        onScroll={() => {
-          console.log('scroll')
+        renderRow={this.renderRow}
+        renderSeparator={this.renderSeparator}
+        renderBodyComponent={() => <MyBody />}
+        style={{
+          height,
+          overflow: 'auto',
         }}
+        onScroll={this.destoryInactiveRows}
+        pageSize={4}
         scrollRenderAheadDistance={500}
-        onEndReached={this.onEndReached}
+        onEndReached={this.handleEndReached}
+        onEndReachedThreshold={1500}
       />
     )
   }

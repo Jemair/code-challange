@@ -1,0 +1,280 @@
+{
+  "count": 4,
+  "start": 0,
+  "total": 200,
+  "subjects": [
+    {
+      "rating": {
+        "max": 10,
+        "average": 9.2,
+        "stars": "45",
+        "min": 0
+      },
+      "genres": [
+        "\u5267\u60c5",
+        "\u559c\u5267",
+        "\u7231\u60c5"
+      ],
+      "title": "\u4e09\u50bb\u5927\u95f9\u5b9d\u83b1\u575e",
+      "casts": [
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1031931\/",
+          "avatars": {
+            "small": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p13628.webp",
+            "large": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p13628.webp",
+            "medium": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p13628.webp"
+          },
+          "name": "\u963f\u7c73\u5c14\u00b7\u6c57",
+          "id": "1031931"
+        },
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1049635\/",
+          "avatars": {
+            "small": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p5568.webp",
+            "large": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p5568.webp",
+            "medium": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p5568.webp"
+          },
+          "name": "\u5361\u7433\u5a1c\u00b7\u5361\u666e\u5c14",
+          "id": "1049635"
+        },
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1018290\/",
+          "avatars": {
+            "small": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p5651.webp",
+            "large": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p5651.webp",
+            "medium": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p5651.webp"
+          },
+          "name": "\u9a6c\u8fbe\u8303",
+          "id": "1018290"
+        }
+      ],
+      "collect_count": 931240,
+      "original_title": "3 Idiots",
+      "subtype": "movie",
+      "directors": [
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1286677\/",
+          "avatars": {
+            "small": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p16549.webp",
+            "large": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p16549.webp",
+            "medium": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p16549.webp"
+          },
+          "name": "\u62c9\u5409\u5e93\u9a6c\u5c14\u00b7\u5e0c\u62c9\u5c3c",
+          "id": "1286677"
+        }
+      ],
+      "year": "2009",
+      "images": {
+        "small": "https://img3.doubanio.com\/view\/photo\/s_ratio_poster\/public\/p579729551.webp",
+        "large": "https://img3.doubanio.com\/view\/photo\/s_ratio_poster\/public\/p579729551.webp",
+        "medium": "https://img3.doubanio.com\/view\/photo\/s_ratio_poster\/public\/p579729551.webp"
+      },
+      "alt": "https:\/\/movie.douban.com\/subject\/3793023\/",
+      "id": "3793023"
+    },
+    {
+      "rating": {
+        "max": 10,
+        "average": 7.4,
+        "stars": "40",
+        "min": 0
+      },
+      "genres": [
+        "\u559c\u5267"
+      ],
+      "title": "\u4eba\u518d\u56e7\u9014\u4e4b\u6cf0\u56e7",
+      "casts": [
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1274297\/",
+          "avatars": {
+            "small": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p43738.webp",
+            "large": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p43738.webp",
+            "medium": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p43738.webp"
+          },
+          "name": "\u5f90\u5ce5",
+          "id": "1274297"
+        },
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1274388\/",
+          "avatars": {
+            "small": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p1356403251.95.webp",
+            "large": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p1356403251.95.webp",
+            "medium": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p1356403251.95.webp"
+          },
+          "name": "\u738b\u5b9d\u5f3a",
+          "id": "1274388"
+        },
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1274242\/",
+          "avatars": {
+            "small": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p1656.webp",
+            "large": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p1656.webp",
+            "medium": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p1656.webp"
+          },
+          "name": "\u9ec4\u6e24",
+          "id": "1274242"
+        }
+      ],
+      "collect_count": 540333,
+      "original_title": "\u4eba\u518d\u56e7\u9014\u4e4b\u6cf0\u56e7",
+      "subtype": "movie",
+      "directors": [
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1274297\/",
+          "avatars": {
+            "small": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p43738.webp",
+            "large": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p43738.webp",
+            "medium": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p43738.webp"
+          },
+          "name": "\u5f90\u5ce5",
+          "id": "1274297"
+        }
+      ],
+      "year": "2012",
+      "images": {
+        "small": "https://img3.doubanio.com\/view\/photo\/s_ratio_poster\/public\/p1793720172.webp",
+        "large": "https://img3.doubanio.com\/view\/photo\/s_ratio_poster\/public\/p1793720172.webp",
+        "medium": "https://img3.doubanio.com\/view\/photo\/s_ratio_poster\/public\/p1793720172.webp"
+      },
+      "alt": "https:\/\/movie.douban.com\/subject\/10574622\/",
+      "id": "10574622"
+    },
+    {
+      "rating": {
+        "max": 10,
+        "average": 9.2,
+        "stars": "45",
+        "min": 0
+      },
+      "genres": [
+        "\u559c\u5267",
+        "\u7231\u60c5",
+        "\u5947\u5e7b"
+      ],
+      "title": "\u5927\u8bdd\u897f\u6e38\u4e4b\u5927\u5723\u5a36\u4eb2",
+      "casts": [
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1048026\/",
+          "avatars": {
+            "small": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p47421.webp",
+            "large": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p47421.webp",
+            "medium": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p47421.webp"
+          },
+          "name": "\u5468\u661f\u9a70",
+          "id": "1048026"
+        },
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1016771\/",
+          "avatars": {
+            "small": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p45481.webp",
+            "large": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p45481.webp",
+            "medium": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p45481.webp"
+          },
+          "name": "\u5434\u5b5f\u8fbe",
+          "id": "1016771"
+        },
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1041734\/",
+          "avatars": {
+            "small": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p49237.webp",
+            "large": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p49237.webp",
+            "medium": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p49237.webp"
+          },
+          "name": "\u6731\u8335",
+          "id": "1041734"
+        }
+      ],
+      "collect_count": 702333,
+      "original_title": "\u897f\u904a\u8a18\u5927\u7d50\u5c40\u4e4b\u4ed9\u5c65\u5947\u7de3",
+      "subtype": "movie",
+      "directors": [
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1274431\/",
+          "avatars": {
+            "small": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p45374.webp",
+            "large": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p45374.webp",
+            "medium": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p45374.webp"
+          },
+          "name": "\u5218\u9547\u4f1f",
+          "id": "1274431"
+        }
+      ],
+      "year": "1995",
+      "images": {
+        "small": "https://img3.doubanio.com\/view\/photo\/s_ratio_poster\/public\/p2455050536.webp",
+        "large": "https://img3.doubanio.com\/view\/photo\/s_ratio_poster\/public\/p2455050536.webp",
+        "medium": "https://img3.doubanio.com\/view\/photo\/s_ratio_poster\/public\/p2455050536.webp"
+      },
+      "alt": "https:\/\/movie.douban.com\/subject\/1292213\/",
+      "id": "1292213"
+    },
+    {
+      "rating": {
+        "max": 10,
+        "average": 7.5,
+        "stars": "40",
+        "min": 0
+      },
+      "genres": [
+        "\u559c\u5267"
+      ],
+      "title": "\u4eba\u5728\u56e7\u9014",
+      "casts": [
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1274297\/",
+          "avatars": {
+            "small": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p43738.webp",
+            "large": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p43738.webp",
+            "medium": "https://img1.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p43738.webp"
+          },
+          "name": "\u5f90\u5ce5",
+          "id": "1274297"
+        },
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1274388\/",
+          "avatars": {
+            "small": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p1356403251.95.webp",
+            "large": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p1356403251.95.webp",
+            "medium": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p1356403251.95.webp"
+          },
+          "name": "\u738b\u5b9d\u5f3a",
+          "id": "1274388"
+        },
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1018820\/",
+          "avatars": {
+            "small": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p42082.webp",
+            "large": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p42082.webp",
+            "medium": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p42082.webp"
+          },
+          "name": "\u674e\u66fc",
+          "id": "1018820"
+        }
+      ],
+      "collect_count": 387189,
+      "original_title": "\u4eba\u5728\u56e7\u9014",
+      "subtype": "movie",
+      "directors": [
+        {
+          "alt": "https:\/\/movie.douban.com\/celebrity\/1275004\/",
+          "avatars": {
+            "small": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p9015.webp",
+            "large": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p9015.webp",
+            "medium": "https://img3.doubanio.com\/view\/celebrity\/s_ratio_celebrity\/public\/p9015.webp"
+          },
+          "name": "\u53f6\u4f1f\u6c11",
+          "id": "1275004"
+        }
+      ],
+      "year": "2010",
+      "images": {
+        "small": "https://img1.doubanio.com\/view\/photo\/s_ratio_poster\/public\/p500548437.webp",
+        "large": "https://img1.doubanio.com\/view\/photo\/s_ratio_poster\/public\/p500548437.webp",
+        "medium": "https://img1.doubanio.com\/view\/photo\/s_ratio_poster\/public\/p500548437.webp"
+      },
+      "alt": "https:\/\/movie.douban.com\/subject\/4237879\/",
+      "id": "4237879"
+    }
+  ],
+  "title": "\u5e26\u6709\u6807\u7b7e \"\u559c\u5267\" \u7684\u6761\u76ee"
+}

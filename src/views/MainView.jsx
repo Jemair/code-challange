@@ -4,9 +4,8 @@ import LongList from './LongList'
 import LazyLoad from './LazyLoad'
 
 const tabs = [
-  { title: 'The first tab' },
-  { title: 'The second tab' },
-  { title: 'The third tab' },
+  { title: 'A Long Long List' },
+  { title: 'Lazy Load' },
 ]
 
 export default class App extends PureComponent {
@@ -14,10 +13,12 @@ export default class App extends PureComponent {
     return (
       <Tabs
         tabs={tabs}
+        initialPage={0}
+        distanceToChangeTab={0.05}
+        destroyInactiveTab
       >
         <LongList />
         <LazyLoad />
-        <div>3</div>
       </Tabs>
     )
   }

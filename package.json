@@ -23,6 +23,7 @@
     "axios": "^0.18.0",
     "immutable": "^3.8.2",
     "prop-types": "^15.6.1",
+    "qs": "^6.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-imported-component": "^4.0.1",
