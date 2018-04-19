@@ -1,29 +1,22 @@
 import React from 'react'
 import { hot } from 'react-hot-loader'
-import { renderRoutes } from 'react-router-config'
-import { BrowserRouter as Router } from 'react-router-dom'
-import routes from 'routes'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import MainView from './views/MainView'
 import './App.styl'
-
-// 初始化rem
-;((docs, win) => {
-  const docEls = docs.documentElement
-  const resizeEvts = 'orientationchange' in window ? 'orientationchange' : 'resize'
-  const recalcs = function() {
-    window.rem = docEls.getBoundingClientRect().width / 37.5
-    docEls.style.fontSize = window.rem + 'px'
-  }
-  recalcs()
-  if (!docs.addEventListener) {
-    return
-  }
-  win.addEventListener(resizeEvts, recalcs, false)
-})(document, window)
+import Virtualized from './views/Virtualized'
+import FirstAttempt from './views/FirstAttempt'
+import './utils/rem'
 
 const App = () => (
   <div className="App">
     <Router>
-      {renderRoutes(routes)}
+      <div>
+        <Route exact path="/" component={MainView} />
+        <Switch>
+          <Route path="/firstAttempt" component={FirstAttempt} />
+          <Route path="/virtualized" component={Virtualized} />
+        </Switch>
+      </div>
     </Router>
   </div>
 )

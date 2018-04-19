@@ -1,25 +1,18 @@
 import React, { PureComponent } from 'react'
-import { Tabs } from 'antd-mobile'
-import LongList from './LongList'
-import LazyLoad from './LazyLoad'
-
-const tabs = [
-  { title: 'A Long Long List' },
-  { title: 'Lazy Load' },
-]
+import { NavLink as Link, Route, Switch } from 'react-router-dom'
+import Virtualized from './Virtualized'
+import FirstAttempt from './FirstAttempt'
 
 export default class App extends PureComponent {
   render() {
+    const { match } = this.props
+    console.log(match.url)
     return (
-      <Tabs
-        tabs={tabs}
-        initialPage={0}
-        distanceToChangeTab={0.05}
-        destroyInactiveTab
-      >
-        <LongList />
-        <LazyLoad />
-      </Tabs>
+      <div>
+        <Link to={`${match.url}firstAttempt`}>First Attempt</Link>
+        <br />
+        <Link to="/virtualized">Virtualized</Link>
+      </div>
     )
   }
 }

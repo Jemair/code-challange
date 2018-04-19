@@ -12,6 +12,7 @@ const express = require('express');
 const webpack = require('webpack');
 const proxyMiddleware = require('http-proxy-middleware');
 const webpackConfig = require('./webpack.dev.conf');
+const portfinder = require('portfinder')
 
 // default port where dev server listens for incoming traffic
 const port = process.env.PORT || config.dev.port;
