@@ -5,7 +5,7 @@ app.get('/v2/movie/search', (req, res) => {
   const list = require('./list')
   const { start, count } = req.query
 
-  res.send({ subjects: list.slice(start, start + count) })
+  res.send({ subjects: list.slice(start, +start + +count) })
 })
 
 app.get('/v2/movie/subject/:id', (req, res) => {

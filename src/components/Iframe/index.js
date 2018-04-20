@@ -2,7 +2,9 @@ import React, { PureComponent } from 'react'
 
 export default class Iframe extends PureComponent {
   componentDidMount() {
-    this.iframe.addEventListener('load', this.props.onload)
+    this.iframe.addEventListener('load', () => {
+      this.props.handleEnter()
+    })
   }
 
   componentWillUpdate() {

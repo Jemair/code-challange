@@ -2,12 +2,13 @@ import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import { Link, Route } from 'react-router-dom'
 import { List } from 'react-virtualized'
+import AnimatedWrapper from '../../components/AnimatedWrapper'
 import { List as ImList, Map as ImMap } from 'immutable'
 import { fetchDoubanList } from '../../api'
 import Detail from '../Detail'
 import s from './index.styl'
 
-export default class Virtualized extends PureComponent {
+class Virtualized extends PureComponent {
   state = {
     start: 0,
     count: 20,
@@ -27,7 +28,7 @@ export default class Virtualized extends PureComponent {
 
   componentWillUpdate() {
     const { match, location } = this.props
-    if (match.path !== location.pathname) {
+    if (match.url !== location.pathname) {
       return false
     }
   }
@@ -46,6 +47,10 @@ export default class Virtualized extends PureComponent {
    * 刷新数据并存入state
    */
   async generateData(start = 0, tag = '喜剧', count = 20) {
+    const { match, location } = this.props
+    if (match.url !== location.pathname) {
+      return
+    }
     const list = await fetchDoubanList({ start, tag, count })
 
     const { list: stList } = this.state
@@ -95,7 +100,7 @@ export default class Virtualized extends PureComponent {
     }
 
     return (
-      <Link to={`${match.path}/detail/${id}`} key={key} style={style}>
+      <Link to={`${match.url}/detail/${id}`} key={key} style={style}>
         <div className={s.row}>
           <p className={s.bigImg}><img src={src} alt={title} /></p>
           <div className={s.content}>
@@ -108,17 +113,17 @@ export default class Virtualized extends PureComponent {
     )
   }
 
+  static renderAdditional(props) {
+    const { match } = props
+    return <Route path={`${match.url}/detail/:id`} component={Detail} />
+  }
+
   render() {
-    const { list, height, isLoading } = this.state
-    const { match, location } = this.props
-    let className = s.list
-    if (match.path !== location.pathname) {
-      className += ` ${s.leaveClassName}`
-    }
+    const { list, height } = this.state
 
     return (
       <div>
-        <div className={className}>
+        <div>
           <List
             ref={el => { this.el = el }}
             width={document.documentElement.clientWidth}
@@ -129,12 +134,10 @@ export default class Virtualized extends PureComponent {
             onScroll={this.handleScroll}
             rowRenderer={this.rowRenderer}
           />
-          { isLoading && <div style={{ background: '#fff', lineHeight: '30px', textAlign: 'center' }}>Loading...</div> }
-        </div>
-        <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
-          <Route path={`${match.path}/detail/:id`} component={Detail} />
         </div>
       </div>
     )
   }
 }
+
+export default AnimatedWrapper(Virtualized)

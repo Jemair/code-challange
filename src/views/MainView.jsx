@@ -3,12 +3,13 @@ import { NavLink as Link } from 'react-router-dom'
 
 export default class App extends PureComponent {
   render() {
-    const { match } = this.props
     return (
       <div>
-        <Link to={`${match.url}firstAttempt`}>First Attempt</Link>
+        <Link style={{ color: '#00f', fontSize: '2rem' }} to="/firstAttempt">Tab demo.</Link>
         <br />
-        <Link to="/virtualized">Virtualized</Link>
+        <br />
+        <br />
+        <Link style={{ color: '#00f', fontSize: '2rem' }} to="/virtualized">Infinite list. Route change with animation.</Link>
       </div>
     )
   }

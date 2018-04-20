@@ -1,45 +1,73 @@
-import React, { Component } from 'react'
-import * as Animated from 'animated/lib/targets/react-dom'
+import React, { PureComponent } from 'react'
+import className from '../../utils/className'
+import './index.styl'
 
-const AnimatedWrapper = WrappedComponent => class AnimatedWrapper extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      animate: new Animated.Value(0),
+const AnimatedWrapper = AnimatedContent =>
+  class AnimatedWrapper extends PureComponent {
+    constructor(props) {
+      super(props)
+      this.state = {
+        aniAppear: false,
+        aniAppearActive: false,
+        aniLeave: false,
+        aniLeaveActive: false,
+      }
+    }
+
+    componentDidMount() {
+      const { history, async } = this.props
+      console.log(this.props)
+      if (history.action !== 'POP' && !async) {
+        this.handleEnter()
+      }
+    }
+
+    componentWillUpdate({ location: nextLocation, history: nextHistory }) {
+      const { location, history, async } = this.props
+      const { aniLeave } = this.state
+      if (location.pathname !== nextLocation.pathname &&
+        history.action === 'PUSH' &&
+        !aniLeave &&
+        !async
+      ) {
+        this.handleLeave()
+      }
+    }
+
+    handleEnter = () => {
+      const { appearDuration = 300 } = this.props
+
+      this.setState({ aniAppear: true })
+      window.setTimeout(() => {
+        this.setState({ aniAppearActive: true })
+      }, 0)
+
+      window.setTimeout(() => {
+        this.setState({ aniAppear: false, aniAppearActive: false })
+      }, appearDuration)
+    }
+
+    handleLeave = () => {
+      const { leaveDuration = 300 } = this.props
+      this.setState({ aniLeave: true })
+      window.setTimeout(() => { this.setState({ aniLeaveActive: true }) }, 0)
+      window.setTimeout(() => {
+        this.setState({ aniLeave: false, aniLeaveActive: false })
+      }, leaveDuration)
+    }
+
+    render() {
+      const { aniAppear, aniAppearActive, aniLeave, aniLeaveActive } = this.state
+      const wrapClassName = className({ aniAppear, aniAppearActive, aniLeave, aniLeaveActive }, 'aniWrap')
+      return (
+        <div>
+          <div className={wrapClassName}>
+            <AnimatedContent {...this.props} handleEnter={this.handleEnter} handleLeave={this.handleLeave} />
+          </div>
+          {AnimatedContent.renderAdditional && AnimatedContent.renderAdditional(this.props)}
+        </div>
+      )
     }
   }
-  componentWillAppear(cb) {
-    console.log('componentWillAppear')
-    Animated.spring(this.state.animate, { toValue: 1 }).start()
-    cb()
-  }
-  componentWillEnter(cb) {
-    console.log('componentWillEnter')
-    setTimeout(
-      () => Animated.spring(this.state.animate, { toValue: 1 }).start(),
-      250
-    )
-    cb()
-  }
-  componentWillLeave(cb) {
-    console.log('componentWillLeave')
-    Animated.spring(this.state.animate, { toValue: 0 }).start()
-    setTimeout(() => cb(), 175)
-  }
-  render() {
-    const style = {
-      opacity: Animated.template`${this.state.animate}`,
-      transform: Animated.template`translate3d(0,${this.state.animate.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['12px', '0px'],
-      })},0)`,
-    }
-    return (
-      <Animated.div style={style} className="animated-page-wrapper">
-        <WrappedComponent {...this.props} />
-      </Animated.div>
-    )
-  }
-}
 
 export default AnimatedWrapper

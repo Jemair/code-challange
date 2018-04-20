@@ -14,16 +14,6 @@ function MyBody(props) {
   )
 }
 
-function isElementInViewport(el) {
-  const rect = el.getBoundingClientRect()
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  )
-}
-
 export default class LongList extends PureComponent {
   constructor(props) {
     super(props)
@@ -46,16 +36,6 @@ export default class LongList extends PureComponent {
 
   componentWillUnmount() {
     document.removeEventListener('touchstart', this.handleTouchStart)
-  }
-
-  destoryInactiveRows = ev => {
-    console.log(ev.target.scrollTop)
-    const oContent = ReactDOM.findDOMNode(this.lv).querySelector('.am-list')
-    const aRows = oContent.querySelectorAll('.row')
-    let recycledheight = 0
-    Array.from(aRows).forEach(n => {
-      console.log(n.offsetTop)
-    })
   }
 
   /**
@@ -180,7 +160,6 @@ export default class LongList extends PureComponent {
           height,
           overflow: 'auto',
         }}
-        onScroll={this.destoryInactiveRows}
         pageSize={4}
         scrollRenderAheadDistance={500}
         onEndReached={this.handleEndReached}

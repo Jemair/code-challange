@@ -4,8 +4,8 @@ import LongList from '../LongList'
 import LazyLoad from '../LazyLoad'
 
 const tabs = [
-  { title: 'A Long Long List' },
-  { title: 'Lazy Load' },
+  { title: 'Pannel 1' },
+  { title: 'Pannel 2' },
 ]
 
 export default class FirstAttempt extends PureComponent {
