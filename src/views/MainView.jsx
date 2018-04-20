@@ -1,12 +1,9 @@
 import React, { PureComponent } from 'react'
-import { NavLink as Link, Route, Switch } from 'react-router-dom'
-import Virtualized from './Virtualized'
-import FirstAttempt from './FirstAttempt'
+import { NavLink as Link } from 'react-router-dom'
 
 export default class App extends PureComponent {
   render() {
     const { match } = this.props
-    console.log(match.url)
     return (
       <div>
         <Link to={`${match.url}firstAttempt`}>First Attempt</Link>

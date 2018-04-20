@@ -21,6 +21,7 @@
   "dependencies": {
     "antd-mobile": "^2.1.8",
     "axios": "^0.18.0",
+    "fastclick": "^1.0.6",
     "immutable": "^3.8.2",
     "prop-types": "^15.6.1",
     "qs": "^6.5.1",

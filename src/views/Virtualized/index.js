@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import { Link, Route } from 'react-router-dom'
-import { List as ImList, Map as ImMap } from 'immutable'
 import { List } from 'react-virtualized'
+import { List as ImList, Map as ImMap } from 'immutable'
 import { fetchDoubanList } from '../../api'
+import Detail from '../Detail'
 import s from './index.styl'
 
 export default class Virtualized extends PureComponent {
@@ -13,7 +14,8 @@ export default class Virtualized extends PureComponent {
     tag: '喜剧',
     list: ImList(),
     height: document.documentElement.clientHeight * 3 / 4,
-    onEndReachedThreshold: 400,
+    onEndReachedThreshold: 600,
+    endReached: false,
     isLoading: false,
     imgLoaded: ImMap(),
   }
@@ -21,6 +23,13 @@ export default class Virtualized extends PureComponent {
   componentDidMount() {
     this.generateData()
     this.setHeight()
+  }
+
+  componentWillUpdate() {
+    const { match, location } = this.props
+    if (match.path !== location.pathname) {
+      return false
+    }
   }
 
   /**
@@ -46,19 +55,20 @@ export default class Virtualized extends PureComponent {
       isLoading: false,
       start,
       list: newList,
+      endReached: list.subjects.length === 0,
     })
   }
 
   handleScroll = ({ clientHeight, scrollHeight, scrollTop }) => {
-    const { onEndReachedThreshold } = this.state
-    if (clientHeight + scrollTop + onEndReachedThreshold > scrollHeight) {
+    const { onEndReachedThreshold, list } = this.state
+    if (clientHeight + scrollTop + onEndReachedThreshold > scrollHeight && list.size !== 0) {
       this.handleEndReached()
     }
   }
 
   handleEndReached = () => {
-    const { start, tag, count, isLoading } = this.state
-    if (isLoading) { return }
+    const { start, tag, count, isLoading, endReached } = this.state
+    if (isLoading || endReached) { return }
     this.setState({ isLoading: true })
     this.generateData(start + count, tag, count)
   }
@@ -72,7 +82,6 @@ export default class Virtualized extends PureComponent {
   }) => {
     const { list } = this.state
     const { match } = this.props
-    console.log(match)
     const imageLoaded = JSON.parse(window.localStorage.getItem('imageLoaded')) || {}
     const { images, title, id } = list.get(index)
     let src = '//upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif'
@@ -86,7 +95,7 @@ export default class Virtualized extends PureComponent {
     }
 
     return (
-      <Link to={`${match.path}/${id}`} key={key} style={style}>
+      <Link to={`${match.path}/detail/${id}`} key={key} style={style}>
         <div className={s.row}>
           <p className={s.bigImg}><img src={src} alt={title} /></p>
           <div className={s.content}>
@@ -101,21 +110,30 @@ export default class Virtualized extends PureComponent {
 
   render() {
     const { list, height, isLoading } = this.state
+    const { match, location } = this.props
+    let className = s.list
+    if (match.path !== location.pathname) {
+      className += ` ${s.leaveClassName}`
+    }
 
     return (
       <div>
-        <List
-          ref={el => { this.el = el }}
-          width={document.documentElement.clientWidth}
-          height={height}
-          rowCount={list.size}
-          rowHeight={190}
-          overscanRowCount={10}
-          onScroll={this.handleScroll}
-          rowRenderer={this.rowRenderer}
-        />
-        { isLoading && <div style={{ background: '#fff', lineHeight: '30px', textAlign: 'center' }}>Loading...</div> }
-        <Route path=":id" component={props => { console.log(1); return <div>1</div> }} />
+        <div className={className}>
+          <List
+            ref={el => { this.el = el }}
+            width={document.documentElement.clientWidth}
+            height={height}
+            rowCount={list.size}
+            rowHeight={160}
+            overscanRowCount={10}
+            onScroll={this.handleScroll}
+            rowRenderer={this.rowRenderer}
+          />
+          { isLoading && <div style={{ background: '#fff', lineHeight: '30px', textAlign: 'center' }}>Loading...</div> }
+        </div>
+        <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+          <Route path={`${match.path}/detail/:id`} component={Detail} />
+        </div>
       </div>
     )
   }

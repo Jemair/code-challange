@@ -1,0 +1,37 @@
+.detail
+  position: absolute
+  top: 0
+  left: 0
+  min-height: 100%
+  width: 100%
+  background: #fff
+  transform: translate3d(400px, 0, 0)
+  transform-origin: right
+  &.animClassName
+    transition: all 0.3s ease-out
+    transform: translate3d(0, 0, 0)
+  &.leaveClassName
+    transform-origin: left
+    transition: transform 0.8s
+    transform: translate3d(-100%, 0, 0)
+
+
+
+.header
+  display: flex
+  padding: 1rem
+  font-size: 1.2rem
+  background: #999
+  color: #efefef
+  .image
+    width: 13rem
+    height: 16rem
+    margin-right: .5rem
+    img
+      width: 100%
+      height: 100%
+  .titleBox
+    .title
+      font-weight: bold
+      font-size: 2rem
+      margin-bottom: 1rem

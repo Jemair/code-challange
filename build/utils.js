@@ -23,6 +23,7 @@ exports.cssLoaders = function (options) {
     }
     if (loader) {
       cssLoader.options.modules = true
+      cssLoader.options.localIdentName = '[name]__[local]__[hash:base64:5]'
     }
 
     const loaders = [cssLoader]
