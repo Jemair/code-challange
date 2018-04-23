@@ -16,7 +16,6 @@ const AnimatedWrapper = AnimatedContent =>
 
     componentDidMount() {
       const { history, async } = this.props
-      console.log(this.props)
       if (history.action !== 'POP' && !async) {
         this.handleEnter()
       }
