@@ -14,7 +14,7 @@ const App = () => (
         <Route exact path="/" component={MainView} />
         <Switch>
           <Route path="/firstAttempt" component={FirstAttempt} />
-          <Route path="/virtualized" component={Virtualized} />
+          <Route path="/infinite" component={Virtualized} />
         </Switch>
       </div>
     </Router>

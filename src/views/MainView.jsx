@@ -9,7 +9,7 @@ export default class App extends PureComponent {
         <br />
         <br />
         <br />
-        <Link style={{ color: '#00f', fontSize: '2rem' }} to="/virtualized">Infinite list. Route change with animation.</Link>
+        <Link style={{ color: '#00f', fontSize: '2rem' }} to="/infinite">Infinite list. Route change with animation.</Link>
       </div>
     )
   }
