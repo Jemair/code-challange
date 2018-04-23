@@ -23,6 +23,10 @@ const AnimatedWrapper = AnimatedContent =>
 
     componentWillUpdate({ location: nextLocation, history: nextHistory }) {
       const { location, history, async } = this.props
+      this.handleForward(location, history, nextLocation, nextHistory, async)
+    }
+
+    handleForward = (location, history, nextLocation, nextHistory, async) => {
       const { aniLeave } = this.state
       if (location.pathname !== nextLocation.pathname &&
         history.action === 'PUSH' &&

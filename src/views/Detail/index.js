@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { Route, Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 import Iframe from '../Iframe'
 import s from './index.styl'
 import { fetchDoubanSubject } from '../../api'

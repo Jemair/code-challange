@@ -26,13 +26,6 @@ class Virtualized extends PureComponent {
     this.setHeight()
   }
 
-  componentWillUpdate() {
-    const { match, location } = this.props
-    if (match.url !== location.pathname) {
-      return false
-    }
-  }
-
   /**
    * ListView在不以body为父元素时需要手动设置高度
    */
@@ -46,11 +39,8 @@ class Virtualized extends PureComponent {
   /**
    * 刷新数据并存入state
    */
+
   async generateData(start = 0, tag = '喜剧', count = 20) {
-    const { match, location } = this.props
-    if (match.url !== location.pathname) {
-      return
-    }
     const list = await fetchDoubanList({ start, tag, count })
 
     const { list: stList } = this.state
@@ -64,6 +54,12 @@ class Virtualized extends PureComponent {
     })
   }
 
+  /**
+   * 监听滚动事件 当满足条件时触发handleEndReached方法
+   * @param clientHeight
+   * @param scrollHeight
+   * @param scrollTop
+   */
   handleScroll = ({ clientHeight, scrollHeight, scrollTop }) => {
     const { onEndReachedThreshold, list } = this.state
     if (clientHeight + scrollTop + onEndReachedThreshold > scrollHeight && list.size !== 0) {
@@ -71,6 +67,9 @@ class Virtualized extends PureComponent {
     }
   }
 
+  /**
+   * 当列表滚动到了末尾 触发该事件
+   */
   handleEndReached = () => {
     const { start, tag, count, isLoading, endReached } = this.state
     if (isLoading || endReached) { return }
@@ -90,12 +89,27 @@ class Virtualized extends PureComponent {
     const imageLoaded = JSON.parse(window.localStorage.getItem('imageLoaded')) || {}
     const { images, title, id } = list.get(index)
     let src = '//upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif'
-    if (imageLoaded[id]) {
+
+    // 如果已经加载过该图片 则直接加载
+    if (imageLoaded[id] > 0) {
       src = images.small
-    }
-    if (!isScrolling) {
-      imageLoaded[id] = true
+
+      // 如果用户在滑动过程中 暂停加载图片 等用户停止滑动再进行加载
+    } else if (!isScrolling) {
+      imageLoaded[id] = Date.now()
       src = images.small
+      window.localStorage.setItem('imageLoaded', JSON.stringify(imageLoaded))
+
+      // 如果每4条数据之间加载的速度多于200ms 说明用户滑动速度很慢 依然加载图片
+    } else if (Math.abs(Date.now() - Math.abs(imageLoaded[id - 4])) > 200) {
+      imageLoaded[id] = Date.now()
+      src = images.small
+      window.localStorage.setItem('imageLoaded', JSON.stringify(imageLoaded))
+
+      // 如果不满足上述每一条件 则说明用户再以极快速度上拉 暂停加载图片
+    } else {
+      imageLoaded[id] = -Date.now()
+      console.log(imageLoaded[id])
       window.localStorage.setItem('imageLoaded', JSON.stringify(imageLoaded))
     }
 
@@ -106,6 +120,7 @@ class Virtualized extends PureComponent {
           <div className={s.content}>
             <p className={s.title}>{title}</p>
             <p className={s.id}>id: {id}</p>
+            <p>row: {index}</p>
           </div>
         </div>
         <p className={s.gap} />
