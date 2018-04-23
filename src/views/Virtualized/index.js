@@ -21,6 +21,8 @@ class Virtualized extends PureComponent {
     imgLoaded: ImMap(),
   }
 
+  loadedTiming = []
+
   componentDidMount() {
     this.generateData()
     this.setHeight()
@@ -91,26 +93,27 @@ class Virtualized extends PureComponent {
     let src = '//upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif'
 
     // 如果已经加载过该图片 则直接加载
-    if (imageLoaded[id] > 0) {
+    if (imageLoaded[id]) {
       src = images.small
+      this.loadedTiming[index] = Date.now()
 
       // 如果用户在滑动过程中 暂停加载图片 等用户停止滑动再进行加载
     } else if (!isScrolling) {
-      imageLoaded[id] = Date.now()
+      imageLoaded[id] = true
+      this.loadedTiming[index] = Date.now()
       src = images.small
       window.localStorage.setItem('imageLoaded', JSON.stringify(imageLoaded))
 
       // 如果每4条数据之间加载的速度多于200ms 说明用户滑动速度很慢 依然加载图片
-    } else if (Math.abs(Date.now() - Math.abs(imageLoaded[id - 4])) > 200) {
-      imageLoaded[id] = Date.now()
+    } else if (index > 5 && isVisible && Math.abs(Date.now() - Math.abs(this.loadedTiming[index - 4])) > 200) {
       src = images.small
+      imageLoaded[id] = true
+      this.loadedTiming[index] = Date.now()
       window.localStorage.setItem('imageLoaded', JSON.stringify(imageLoaded))
 
       // 如果不满足上述每一条件 则说明用户再以极快速度上拉 暂停加载图片
     } else {
-      imageLoaded[id] = -Date.now()
-      console.log(imageLoaded[id])
-      window.localStorage.setItem('imageLoaded', JSON.stringify(imageLoaded))
+      this.loadedTiming[index] = -Date.now()
     }
 
     return (
