@@ -1,5 +1,10 @@
 const express = require('express')
+const cors = require('cors')
+const compression = require('compression')
 const app = express()
+
+app.use(cors())
+app.use(compression())
 
 app.get('/v2/movie/search', (req, res) => {
   const list = require('./list')
